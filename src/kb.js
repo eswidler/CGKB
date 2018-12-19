@@ -1,6 +1,11 @@
 const _ = require('lodash')
 const path = require('path')
+const cypher = require('cypher-query-builder')
 const db = require(path.join(__dirname, 'db'))
+const cqb = require(path.join(__dirname, 'cqb'))
+
+// Node variable identifier for Cypher queries
+const node_var = 'u'
 
 // -------------------------------------------------------------
 // helpers
@@ -151,6 +156,29 @@ function removeGraph(nodeProps) {
   return queries
 }
 
+// Returns a promise that resolves with any nodes matching a name
+// and any type of label from a list provided.
+function cypherFindNodes(name, labels) {
+   var name_clause = {}
+  if (name) {
+    name_clause[node_var + '.name'] = name
+  }
+
+  var label_clauses = _.map(labels, function(label) {
+    var label_clause = {}
+    label_clause[node_var + '.label'] = label
+    return label_clause
+  })
+
+  return cqb.matchNode(node_var)
+    .where(
+      name_clause,
+      cypher.or(label_clauses)
+    )
+    .return(node_var)
+    .run()
+}
+
 // -------------------------------------------------------------
 // clear DB: whole or test only
 
@@ -177,6 +205,7 @@ module.exports = {
   getEdge: getEdge,
   updateEdge: updateEdge,
   removeEdge: removeEdge,
+  cypherFindNodes: cypherFindNodes,
   addGraph: addGraph,
   getGraph: getGraph,
   removeGraph: removeGraph,

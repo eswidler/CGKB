@@ -30,13 +30,19 @@
   "homepage": "https://github.com/kengz/CGKB#readme",
   "dependencies": {
     "bluebird": "^3.4.6",
+    "buffer": "^5.2.1",
     "co": "^4.6.0",
     "config": "^1.21.0",
+    "cypher-query-builder": "^3.8.5",
+    "fetch": "^1.1.0",
+    "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.16.4",
     "neo4j": "^2.0.0-RC2",
+    "node-fetch": "^2.3.0",
+    "rxjs": "^6.3.3",
+    "snyk": "^1.41.1",
     "spacy-nlp": "^1.0.7",
-    "winston": "^2.2.0",
-    "snyk": "^1.41.1"
+    "winston": "^2.2.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",

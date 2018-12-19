@@ -51,9 +51,17 @@ var add = co.wrap(function*(text) {
   return yield kb.db.cypherAsync(queries)
 })
 
+// Find nodes matching a serach string
+var find = co.wrap(function*(search_str) {
+  // Only look for noun-like nodes for now
+  return kb.cypherFindNodes(search_str, ['NN', 'NNP'])
+})
+
+
 module.exports = {
   kb: kb,
   nlp: nlp,
   nlpServer: nlpServer,
-  add: add
+  add: add,
+  find: find
 }
